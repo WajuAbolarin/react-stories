@@ -1,16 +1,11 @@
-import React, { Component } from 'react'
-import StoryListItem from './StoryListItem'
+import React from 'react'
 
-class StoryList extends Component {
-  render() {
-    return (
-      <div className="bg-light rounded p-4">
-        {this.props.stories.map(story => (
-          <StoryListItem key={story.id} story={story} />
-        ))}
-      </div>
-    )
-  }
-}
+
+const StoryList = ({ children}) => (
+      console.log('Rerendering Storlist') ||  
+    <div className="bg-light rounded p-4">
+     {children}
+    </div>
+  )
 
 export default StoryList
