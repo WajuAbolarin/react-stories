@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PinnedStory from "./components/PinnedStory";
 import NewStory from "./components/NewStory";
 import StoryList from "./components/StoryList";
-import StoryListItem from "./components/StoryListItem";
-
 import Storage from "./helpers/storage";
 
 class App extends Component {
@@ -53,6 +51,7 @@ class App extends Component {
   likeStory = id => {
     let index = this.state.stories.findIndex(str => str.id === id);
     let story = this.state.stories[index];
+    console.log(story);
     let before = this.state.stories.slice(0, index);
     let after = this.state.stories.slice(index + 1);
 
@@ -71,25 +70,12 @@ class App extends Component {
           <div className="col-xs-12 col-md-8 mx-auto">
             <PinnedStory story={pinnedStory} onUnpin={this.unPinStory} />
             <NewStory onStoryAdded={this.addStory} />
-            <StoryList>
-              {otherStories.length === 0 ? (
-                <div className="bg-dark text-white p-4 py-5">
-                  <h3 className="text-center my-auto py-5">
-                    Hi, Add Your first post now
-                  </h3>
-                </div>
-              ) : (
-                otherStories.map(story => (
-                  <StoryListItem
-                    {...story}
-                    key={story.id}
-                    onPinStory={this.pinStory}
-                    onLikeStory={this.likeStory}
-                    onDeleteStory={this.deleteStory}
-                  />
-                ))
-              )}
-            </StoryList>
+            <StoryList
+              stories={otherStories}
+              onDeleteStory={this.deleteStory}
+              onLikeStory={this.likeStory}
+              onPinStory={this.pinStory}
+            />
           </div>
         </div>
       </div>

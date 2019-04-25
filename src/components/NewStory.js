@@ -3,20 +3,15 @@ import { randomString } from "../helpers";
 
 function NewStory({ onStoryAdded }) {
   const input = useRef(null);
-  const defaultState = {
-    id: "",
-    content: "",
-    posted: "",
-    isPinned: false,
-    likes: 0
-  };
 
   function postStory() {
     if (!input.current.value.length) return;
     onStoryAdded({
       content: input.current.value,
       id: randomString(),
-      posted: Date.now()
+      posted: Date.now(),
+      isPinned: false,
+      likes: 0
     });
     input.current.value = "";
   }
