@@ -1,32 +1,37 @@
-import React, { useState, memo } from 'react'
-import { randomString } from '../helpers'
-
+import React, { memo, useRef } from "react";
+import { randomString } from "../helpers";
 
 function NewStory({ onStoryAdded }) {
-  const defaultState = { id: '', content: '', posted: '', isPinned: false, likes: 0 }
-  const [story, setStory] = useState(defaultState)
-
-
-  function updateContent({ target: { value: content } }) {
-    setStory({ ...story, content })
-  }
+  const input = useRef(null);
+  const defaultState = {
+    id: "",
+    content: "",
+    posted: "",
+    isPinned: false,
+    likes: 0
+  };
 
   function postStory() {
-    if (!story.content) return
-    onStoryAdded({ ...story, id: randomString(), posted: Date.now() })
-    setStory(defaultState)
+    if (!input.current.value.length) return;
+    onStoryAdded({
+      content: input.current.value,
+      id: randomString(),
+      posted: Date.now()
+    });
+    input.current.value = "";
   }
 
   return (
-           console.log('Rerendering New Story') ||  
+    console.log("Rendering new story") || (
       <div className="d-flex flex-column justify-content-between p-3 shadow py-4 my-3 border">
-      <label>Post a Story</label>
-      <textarea  className="form-control mb-3" rows="3" value={story.content} onChange={updateContent} />
-      <button disabled={!story.content} className="btn bg-dark btn-md text-white" onClick={postStory}>
-        Post Story
-      </button>
-    </div>
-  )
+        <label>Post a Story</label>
+        <textarea className="form-control mb-3" rows="3" ref={input} />
+        <button className="btn bg-dark btn-md text-white" onClick={postStory}>
+          Post Story
+        </button>
+      </div>
+    )
+  );
 }
 
-export default memo(NewStory)
+export default memo(NewStory);
