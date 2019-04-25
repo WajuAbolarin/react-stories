@@ -1,25 +1,25 @@
 class Storage {
-  static key = 'STORIES'
+  static key = "STORIES";
 
   /**
    * fet all stories from storage
    */
-  fetch() {
-    return JSON.parse(localStorage.getItem(Storage.key)) || []
+  static fetch() {
+    return JSON.parse(localStorage.getItem(Storage.key)) || [];
   }
 
   /**
    * synchroise the state with storage
    * @param {array} stories
    */
-  sync(stories = []) {
-    localStorage.setItem(Storage.key, JSON.stringify(stories))
-    return stories
+  static sync(stories = []) {
+    localStorage.setItem(Storage.key, JSON.stringify(stories));
+    return stories;
   }
 
-  clear() {
-    return this.sync()
+  static clear() {
+    return Storage.sync();
   }
 }
 
-export default new Storage()
+export default Storage;
